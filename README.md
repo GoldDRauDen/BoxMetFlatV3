@@ -14,10 +14,10 @@ Plugin AutoCAD `BOXMET` tạo biên dạng trải phẳng hộp kim loại tấm
 | `boxvip/Boxmetcommand.cs` | Tính và vẽ LINE/ARC, xử lý hai hướng trải phẳng |
 | `boxvip/Boxmetdialog.cs` | Hộp thoại nhập L, W, T, vật liệu, NOBI và chiều cao flap |
 | `boxvip/NobiLookup.cs` | Tra cứu NOBI theo vật liệu và chiều dày |
-| `MM.dxf` | Mẫu đối chiếu hình học mong muốn |
-| `HT.dxf` | Mẫu hiện trạng dùng để kiểm tra lỗi |
-| `Mau_test.dxf` | Mẫu thử trước đó |
-| `nobi-standards.md` | Bảng tiêu chuẩn NOBI tham khảo |
+| `references/dxf/MM.dxf` | Mẫu đối chiếu hình học mong muốn |
+| `tests/fixtures/HT.dxf` | Mẫu kiểm tra hiện trạng, có DIMENSION khoảng slit `1.5` |
+| `references/dxf/Mau_test.dxf` | Mẫu thử trước đó |
+| `references/nobi-standards.md` | Bảng tiêu chuẩn NOBI tham khảo |
 
 ## Quy tắc hình học
 
@@ -36,6 +36,15 @@ dotnet build .\boxvip\boxvip.csproj
 ```
 
 Plugin đầu ra nằm trong thư mục `boxvip/bin/` và được Git bỏ qua.
+
+## References và test fixtures
+
+- `references/` chứa các mẫu đối chiếu và tài liệu tiêu chuẩn, không phải đầu vào runtime của plugin.
+- `tests/fixtures/` chứa DXF dùng để kiểm tra thủ công hoặc tự động.
+- `HT.dxf` giữ khoảng lệch `1.5` của slit; yêu cầu là nối liên tục contour flap ngoài, không kéo slit sát vào góc đáy.
+- `HT.bak` là bản dự phòng của fixture trước khi kiểm tra.
+
+Hướng dẫn kiểm tra chi tiết nằm tại [`tests/README.md`](tests/README.md).
 
 ## Lịch sử thay đổi
 
@@ -57,7 +66,12 @@ Mỗi lần thay đổi hình học nên tạo một commit riêng, mô tả rõ
 - Giữ slit là phần cắt riêng.
 - Khởi tạo Git để lưu và đối chiếu các phiên bản.
 
+### 0.2.1 — Sắp xếp references và test fixtures
+
+- Gom DXF mẫu và tiêu chuẩn vào `references/`.
+- Gom `HT.dxf` và bản dự phòng vào `tests/fixtures/`.
+- Giữ khoảng slit `1.5`, chỉ yêu cầu contour flap ngoài nối tuyệt đối.
+
 ### 0.1.0 — Mốc ban đầu
 
 - Phiên bản mã nguồn trước khi sửa hình học bo R.
-
