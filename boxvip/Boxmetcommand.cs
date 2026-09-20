@@ -204,14 +204,14 @@ namespace BoxMetPlugin
                 AddLine(btr, tr, Pt(T, W + (H3 - N) - R_outer), Pt(T, W));
 
                 // -- Right Flap (full) — 3 nét + fillet corners --
-                AddLine(btr, tr, P2, Pt(L + (H2 - N), 0 + R_outer));
+                AddLine(btr, tr, P2, Pt(L + (H2 - N) - R_outer, 0));
                 AddLine(btr, tr, Pt(L + (H2 - N), 0 + R_outer), Pt(L + (H2 - N), W - R_outer));
-                AddLine(btr, tr, Pt(L + (H2 - N), W - R_outer), P3);
+                AddLine(btr, tr, Pt(L + (H2 - N) - R_outer, W), P3);
 
                 // -- Left Flap (full) — 3 nét + fillet corners --
-                AddLine(btr, tr, P4, Pt(-(H4 - N), W - R_outer));
+                AddLine(btr, tr, P4, Pt(-(H4 - N) + R_outer, W));
                 AddLine(btr, tr, Pt(-(H4 - N), W - R_outer), Pt(-(H4 - N), 0 + R_outer));
-                AddLine(btr, tr, Pt(-(H4 - N), 0 + R_outer), P1);
+                AddLine(btr, tr, Pt(-(H4 - N) + R_outer, 0), P1);
 
                 // -- Outer fillet arcs (8 corners) --
                 // Bottom Flap bottom-left
@@ -244,13 +244,13 @@ namespace BoxMetPlugin
 
                 // -- Bottom Flap (full) — 3 nét + fillet corners --
                 AddLine(btr, tr, P1, Pt(0, -(H1 - N) + R_outer));
-                AddLine(btr, tr, Pt(0, 0 + R_outer), Pt(L, -(H1 - N) - R_outer));
-                AddLine(btr, tr, Pt(L, 0 + R_outer), P2);
+                AddLine(btr, tr, Pt(R_outer, -(H1 - N)), Pt(L - R_outer, -(H1 - N)));
+                AddLine(btr, tr, Pt(L, -(H1 - N) + R_outer), P2);
 
                 // -- Top Flap (full) — 3 nét + fillet corners --
                 AddLine(btr, tr, P3, Pt(L, W + (H3 - N) - R_outer));
-                AddLine(btr, tr, Pt(L, W), Pt(0, W + (H3 - N) - R_outer));
-                AddLine(btr, tr, Pt(0, W), P4);
+                AddLine(btr, tr, Pt(L - R_outer, W + (H3 - N)), Pt(R_outer, W + (H3 - N)));
+                AddLine(btr, tr, Pt(0, W + (H3 - N) - R_outer), P4);
 
                 // -- Right Flap (lui T) — 3 nét + fillet corners --
                 AddLine(btr, tr, Pt(L, T), Pt(L + (H2 - N) - R_outer, T));
@@ -268,17 +268,17 @@ namespace BoxMetPlugin
                 // Bottom Flap bottom-right
                 AddArc(btr, tr, Pt(L - R_outer, -(H1 - N) + R_outer), R_outer, 270, 360, 0);
                 // Right Flap bottom-right
-                AddArc(btr, tr, Pt(L + (H2 - N) - R_outer, T + R_outer), R_outer, 180, 270, 0);
+                AddArc(btr, tr, Pt(L + (H2 - N) - R_outer, T + R_outer), R_outer, 270, 360, 0);
                 // Right Flap top-right
-                AddArc(btr, tr, Pt(L + (H2 - N) - R_outer, W - T - R_outer), R_outer, 90, 180, 0);
+                AddArc(btr, tr, Pt(L + (H2 - N) - R_outer, W - T - R_outer), R_outer, 0, 90, 0);
                 // Top Flap top-right
                 AddArc(btr, tr, Pt(L - R_outer, W + (H3 - N) - R_outer), R_outer, 0, 90, 0);
                 // Top Flap top-left
                 AddArc(btr, tr, Pt(0 + R_outer, W + (H3 - N) - R_outer), R_outer, 90, 180, 0);
                 // Left Flap top-left
-                AddArc(btr, tr, Pt(-(H4 - N) + R_outer, W - T - R_outer), R_outer, 0, 90, 0);
+                AddArc(btr, tr, Pt(-(H4 - N) + R_outer, W - T - R_outer), R_outer, 90, 180, 0);
                 // Left Flap bottom-left
-                AddArc(btr, tr, Pt(-(H4 - N) + R_outer, T + R_outer), R_outer, 270, 360, 0);
+                AddArc(btr, tr, Pt(-(H4 - N) + R_outer, T + R_outer), R_outer, 180, 270, 0);
 
                 // -- Slits tại 4 góc lui T (Right/Left) --
                 DrawSlit(btr, tr, Pt(L, T), Pt(L - sl, T), Pt(L + lv, T - lv));
