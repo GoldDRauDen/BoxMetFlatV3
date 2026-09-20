@@ -204,14 +204,14 @@ namespace BoxMetPlugin
                 AddLine(btr, tr, Pt(T, W + (H3 - N) - R_outer), Pt(T, W));
 
                 // -- Right Flap (full) — 3 nét + fillet corners --
-                AddLine(btr, tr, P2, Pt(L + (H2 - N) - R_outer, 0));
+                AddLine(btr, tr, Pt(L - T, 0), Pt(L + (H2 - N) - R_outer, 0));
                 AddLine(btr, tr, Pt(L + (H2 - N), 0 + R_outer), Pt(L + (H2 - N), W - R_outer));
-                AddLine(btr, tr, Pt(L + (H2 - N) - R_outer, W), P3);
+                AddLine(btr, tr, Pt(L + (H2 - N) - R_outer, W), Pt(L - T, W));
 
                 // -- Left Flap (full) — 3 nét + fillet corners --
-                AddLine(btr, tr, P4, Pt(-(H4 - N) + R_outer, W));
+                AddLine(btr, tr, Pt(T, W), Pt(-(H4 - N) + R_outer, W));
                 AddLine(btr, tr, Pt(-(H4 - N), W - R_outer), Pt(-(H4 - N), 0 + R_outer));
-                AddLine(btr, tr, Pt(-(H4 - N) + R_outer, 0), P1);
+                AddLine(btr, tr, Pt(-(H4 - N) + R_outer, 0), Pt(T, 0));
 
                 // -- Outer fillet arcs (8 corners) --
                 // Bottom Flap bottom-left
@@ -246,11 +246,15 @@ namespace BoxMetPlugin
                 AddLine(btr, tr, P1, Pt(0, -(H1 - N) + R_outer));
                 AddLine(btr, tr, Pt(R_outer, -(H1 - N)), Pt(L - R_outer, -(H1 - N)));
                 AddLine(btr, tr, Pt(L, -(H1 - N) + R_outer), P2);
+                AddLine(btr, tr, P1, Pt(0, T));
+                AddLine(btr, tr, P2, Pt(L, T));
 
                 // -- Top Flap (full) — 3 nét + fillet corners --
                 AddLine(btr, tr, P3, Pt(L, W + (H3 - N) - R_outer));
                 AddLine(btr, tr, Pt(L - R_outer, W + (H3 - N)), Pt(R_outer, W + (H3 - N)));
                 AddLine(btr, tr, Pt(0, W + (H3 - N) - R_outer), P4);
+                AddLine(btr, tr, P3, Pt(L, W - T));
+                AddLine(btr, tr, P4, Pt(0, W - T));
 
                 // -- Right Flap (lui T) — 3 nét + fillet corners --
                 AddLine(btr, tr, Pt(L, T), Pt(L + (H2 - N) - R_outer, T));
