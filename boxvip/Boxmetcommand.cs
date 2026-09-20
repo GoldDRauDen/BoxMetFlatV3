@@ -60,8 +60,10 @@ namespace BoxMetPlugin
             var ln = new Line(a, b)
             {
                 Layer = LAYER,
-                Linetype = dashed ? "DASHED" : "CONTINUOUS"
+                Linetype = "BYLAYER"
             };
+            // NOBI is the only geometry that overrides the layer linetype.
+            if (dashed) ln.Linetype = "DASHED";
             if (colorIdx > 0)
                 ln.Color = AcColor.FromColorIndex(ColorMethod.ByAci, colorIdx);
             btr.AppendEntity(ln);
@@ -78,7 +80,7 @@ namespace BoxMetPlugin
                               endDeg * Math.PI / 180.0)
             {
                 Layer = LAYER,
-                Linetype = "CONTINUOUS"
+                Linetype = "BYLAYER"
             };
             if (colorIdx > 0)
                 arc.Color = AcColor.FromColorIndex(ColorMethod.ByAci, colorIdx);
@@ -141,7 +143,7 @@ namespace BoxMetPlugin
                 var arc = new Arc(center, filletR, arcStart, arcEnd)
                 {
                     Layer = LAYER,
-                    Linetype = "CONTINUOUS",
+                    Linetype = "BYLAYER",
                     Color = AcColor.FromColorIndex(ColorMethod.ByAci, COLOR_SLIT)
                 };
                 btr.AppendEntity(arc);
