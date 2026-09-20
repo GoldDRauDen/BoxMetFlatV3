@@ -17,6 +17,7 @@ Plugin AutoCAD `BOXMET` tạo biên dạng trải phẳng hộp kim loại tấm
 | `references/dxf/MM.dxf` | Mẫu đối chiếu hình học mong muốn |
 | `tests/fixtures/HT.dxf` | Mẫu kiểm tra hiện trạng, có DIMENSION khoảng slit `1.5` |
 | `references/dxf/Mau_test.dxf` | Mẫu thử trước đó |
+| `references/dxf/noilien.dxf` | Mẫu tham khảo contour LINE/ARC kín liên tục |
 | `references/nobi-standards.md` | Bảng tiêu chuẩn NOBI tham khảo |
 
 ## Quy tắc hình học

@@ -178,10 +178,23 @@ namespace BoxMetPlugin
                     .Database.LinetypeTableId, OpenMode.ForRead) as LinetypeTable,
                 tr, "DASHED");
 
-            AddLine(btr, tr, P1, P2, true);
-            AddLine(btr, tr, P2, P3, true);
-            AddLine(btr, tr, P3, P4, true);
-            AddLine(btr, tr, P4, P1, true);
+            // The outer NOBI rectangle is interrupted wherever the laser
+            // contour uses the same T-wide corner segment. This keeps the
+            // dashed bend/reference geometry separate from the solid cut path.
+            if (p.IsLongX)
+            {
+                AddLine(btr, tr, Pt(T, 0), Pt(L - T, 0), true);
+                AddLine(btr, tr, P2, P3, true);
+                AddLine(btr, tr, Pt(L - T, W), Pt(T, W), true);
+                AddLine(btr, tr, P4, P1, true);
+            }
+            else
+            {
+                AddLine(btr, tr, P1, P2, true);
+                AddLine(btr, tr, Pt(L, T), Pt(L, W - T), true);
+                AddLine(btr, tr, P3, P4, true);
+                AddLine(btr, tr, Pt(0, W - T), Pt(0, T), true);
+            }
 
             // ── NOBI offset ──
             if (2 * N < L && 2 * N < W)
