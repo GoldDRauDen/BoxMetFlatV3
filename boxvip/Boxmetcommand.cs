@@ -54,11 +54,14 @@ namespace BoxMetPlugin
         public const short COLOR_SLIT = 3;
 
         static Line AddLine(BlockTableRecord btr, Transaction tr,
-                            Point3d a, Point3d b,
-                            bool dashed = false, short colorIdx = 0)
+            Point3d a, Point3d b,
+            bool dashed = false, short colorIdx = 0)
         {
-            var ln = new Line(a, b) { Layer = LAYER };
-            if (dashed) ln.Linetype = "DASHED";
+            var ln = new Line(a, b)
+            {
+                Layer = LAYER,
+                Linetype = dashed ? "DASHED" : "CONTINUOUS"
+            };
             if (colorIdx > 0)
                 ln.Color = AcColor.FromColorIndex(ColorMethod.ByAci, colorIdx);
             btr.AppendEntity(ln);
@@ -73,7 +76,10 @@ namespace BoxMetPlugin
             var arc = new Arc(center, radius,
                               startDeg * Math.PI / 180.0,
                               endDeg * Math.PI / 180.0)
-            { Layer = LAYER };
+            {
+                Layer = LAYER,
+                Linetype = "CONTINUOUS"
+            };
             if (colorIdx > 0)
                 arc.Color = AcColor.FromColorIndex(ColorMethod.ByAci, colorIdx);
             btr.AppendEntity(arc);
@@ -135,6 +141,7 @@ namespace BoxMetPlugin
                 var arc = new Arc(center, filletR, arcStart, arcEnd)
                 {
                     Layer = LAYER,
+                    Linetype = "CONTINUOUS",
                     Color = AcColor.FromColorIndex(ColorMethod.ByAci, COLOR_SLIT)
                 };
                 btr.AppendEntity(arc);
