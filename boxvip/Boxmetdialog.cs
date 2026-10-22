@@ -87,7 +87,7 @@ namespace BoxMetPlugin
             flow.Controls.Add(lblNobiRef);
             txtL.TextChanged += (s, e) => UpdateNobiRef();
             txtW.TextChanged += (s, e) => UpdateNobiRef();
-            txtT.TextChanged += (s, e) => UpdateNobiRef();
+            txtT.TextChanged += (s, e) => { UpdateNobiRef(); UpdateInfo(); };
 
             // ── SECTION: Vật liệu ──
             flow.Controls.Add(MakeSection("▸  VẬT LIỆU"));
@@ -102,7 +102,7 @@ namespace BoxMetPlugin
                 Margin = new Padding(0, 2, 0, 8)
             };
             cmbMat.Items.AddRange(new[] {
-                "SS  — Stainless Steel (Lead 3mm)",
+                "SS  — Stainless Steel (Lead 3mm khi T≤3.2, ngược lại 6mm)",
                 "SUS — High-grade SUS  (Lead 6mm)",
                 "AL  — Aluminum        (Lead 6mm)",
                 "MS  — Mild Steel      (Lead 6mm)",
@@ -297,8 +297,9 @@ namespace BoxMetPlugin
 
         void UpdateInfo()
         {
-            bool isSS = cmbMat.SelectedIndex == 0;
-            double lead = isSS ? 3.0 : 6.0;
+            string mat = cmbMat.SelectedIndex == 0 ? "SS" : "OTHER";
+            double t = double.TryParse(txtT.Text, out double tv) ? tv : 0;
+            double lead = BoxParams.LeadFor(mat, t);
             lblInfo.Text = $"ℹ  Lead-in: {lead:F1} mm  |  Slit: T + 0.2";
         }
 

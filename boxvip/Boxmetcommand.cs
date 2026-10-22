@@ -36,7 +36,11 @@ namespace BoxMetPlugin
         public Point3d BasePoint { get; set; } = Point3d.Origin;
 
         public double SlitLen => Thickness + 0.2;
-        public double LeadVal => (Material.ToUpper() == "SS" && Thickness < 6.0) ? 3.0 : 6.0;
+        public double LeadVal => LeadFor(Material, Thickness);
+
+        // SS có T <= 3.2 → vòi (lead-in) 3mm; còn lại 6mm.
+        public static double LeadFor(string material, double thickness)
+            => (material.ToUpper() == "SS" && thickness <= 3.2 + 1e-9) ? 3.0 : 6.0;
         public bool IsLongX => Length >= Width;
     }
 
