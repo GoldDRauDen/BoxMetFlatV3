@@ -25,4 +25,11 @@
 		</Reference>
 	</ItemGroup>
 
+	<!-- Sau mỗi lần build: copy DLL vào dist/ ở gốc repo để commit lên GitHub -->
+	<Target Name="CopyToDist" AfterTargets="Build">
+		<Copy SourceFiles="$(OutDir)$(AssemblyName).dll"
+			  DestinationFolder="$(MSBuildProjectDirectory)\..\dist"
+			  SkipUnchangedFiles="true" />
+	</Target>
+
 </Project>
